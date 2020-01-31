@@ -1,0 +1,36 @@
+{
+  "name": "api-weather-station",
+  "version": "1.0.0",
+  "description": "API Weather Station",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "npm run build & nodemon --exec babel-node bin/www",
+    "build": "babel src --out-dir dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leandrojaviercepeda/api-weather-station.git"
+  },
+  "author": "Leandro Cepeda, Leandro Fravega",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Leandrojaviercepeda/api-weather-station/issues"
+  },
+  "homepage": "https://github.com/Leandrojaviercepeda/api-weather-station#readme",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-errors": "^1.7.3",
+    "pg": "^7.14.0",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "nodemon": "^1.19.4"
+  }
+}
