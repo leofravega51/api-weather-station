@@ -1,4 +1,5 @@
 const { clientPool } = require('../db/pool')
+const { finaluserPool } = require('../db/pool')
 
 /**
  * 
@@ -51,6 +52,8 @@ const getClientAsociatedWith = async (currentApikey) => {
     }
 }
 
+// getClientAsociatedWith("72dbf28a-ab97-4858-8d30-58993dfee824").then(res => console.log(res)).catch(err => console.log(err))
+
 /**
  * 
  * @param {String} currentClient 
@@ -75,7 +78,26 @@ const saveInQueryHistory = async (currentClient) => {
     }
 }
 
+const getFinaluser = async (email) => {
+    try{
+        const query = 'SELECT * from finaluser where finaluser.email=$1'
+        const values = [email.toLowerCase()]
+        const response = await finaluserPool.query(query, values)
+
+        if (!response.rows[0]) {
+            const err = new Error('It was not possible to save in the query history.')
+            err.status = 404
+            throw err
+        }
+        
+        return { finaluser : response.rows[0] }
+    } catch (err) {
+        throw err
+    }
+}
+
 module.exports = { 
     getClientAsociatedWith,
-    saveInQueryHistory
+    saveInQueryHistory,
+    getFinaluser
 }

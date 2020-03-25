@@ -18,7 +18,7 @@ StationRouter.get('/stations/createdAt?', async (req, res, next) => {
         const reqStartDate = req.query.startDate
         const reqEndDate = req.query.endDate
         
-        if (reqStartDate != null || reqEndDate != null) {
+        if (reqStartDate != null && reqEndDate != null) {
             const reqApikey = req.query.apikey
             const { client } = await getClientAsociatedWith(reqApikey)            
             const saved = await saveInQueryHistory(client)
@@ -37,7 +37,7 @@ StationRouter.get('/stations/createdAt?', async (req, res, next) => {
 })
 
 // Router for get data by id station
-StationRouter.get('/station?', async (req, res, next) => {
+StationRouter.get('/stations?', async (req, res, next) => {
     try {
         const reqIdStation = req.query.id
 
@@ -45,7 +45,7 @@ StationRouter.get('/station?', async (req, res, next) => {
             const reqApikey = req.query.apikey
             const { client } = await getClientAsociatedWith(reqApikey)            
             const saved = await saveInQueryHistory(client)
-            const station = await getStationdataById(reqIdStation, 5)
+            const station = await getStationdataById(reqIdStation)
 
             res.status(200).send(JSON.stringify(station, null, 2))
         } else

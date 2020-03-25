@@ -4,9 +4,35 @@ const favicon = require('serve-favicon')
 const path = require('path')
 const { StationRouter } = require('./routes/stationRouter')
 const { WeatherRouter } = require('./routes/weatherRouter')
-const appVersion = process.env.npm_package_version
+const { ClientRouter } = require('./routes/clientRouter')
 
-const app = express()
+const appVersion = process.env.npm_package_version
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const app = express();
+
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(cors());
+
+// const {sendEmail} = require('../mail');
+
+// app.post("/api/sendEmail", (req, res) => {
+//     res.status(200).send()
+
+//     sendEmail(req.body.email, req.body.name);
+
+
+// })
+
+
+
+// app.listen(port , () => {
+//     console.log(`Server listening at port ${port}`);
+// })
 
 app.use(favicon(path.join(__dirname, './weather.ico')))
 app.use(express.urlencoded({extended: false}))
@@ -19,6 +45,7 @@ app.use((req, res, next) => {
 
 app.use(`/${appVersion}`, StationRouter)
 app.use(`/${appVersion}`, WeatherRouter)
+app.use(`/${appVersion}`, ClientRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
